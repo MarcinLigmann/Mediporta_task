@@ -1,10 +1,12 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { tagsSlice } from './slice/tagsSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import { tagsApi } from "./slice/tagsSlice";
 
 const store = configureStore({
   reducer: {
-    tags: tagsSlice.reducer,
+    [tagsApi.reducerPath]: tagsApi.reducer,
   },
-})
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(tagsApi.middleware),
+});
 
-export default store
+export default store;

@@ -11,7 +11,6 @@ import { Footer } from './components/footex';
 
 function App() {
 
-
   return (
     <div className='p-5'>
       <Header />

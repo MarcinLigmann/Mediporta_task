@@ -1,9 +1,7 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchTags, selectTags, selectTagsError, selectTagsLoading } from '../store/slice/tagsSlice';
+import { useGetTagsQuery } from '../store/slice/tagsSlice';
 import { useSearchParams } from 'react-router-dom';
-import { ThunkDispatch } from '@reduxjs/toolkit';
 import { Tag } from '../types/Tag';
 import { Loader } from './loader';
 import BoardItem from './boardItem';
@@ -13,20 +11,21 @@ const TagsBoard = () => {
 
   const [searchParams] = useSearchParams()
 
-  const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
+  const page = parseInt(searchParams.get("page") || "1");
+  const pageSize = parseInt(searchParams.get("rowsPerPage") || "5");
+  const order = searchParams.get("order") ?? "desc";
+  const sort = searchParams.get("sort") ?? "popular";
 
-  const page = parseInt(searchParams.get("page") || "1")
-  const pageSize = parseInt(searchParams.get("rowsPerPage") || "5")
-  const order = searchParams.get("order") ?? "desc"
-  const sort = searchParams.get("sort") ?? "popular"
-
-  const tags = useSelector(selectTags)
-  const isLoading = useSelector(selectTagsLoading)
-  const error = useSelector(selectTagsError)
+  const { data: tags, error, isLoading, refetch } = useGetTagsQuery({
+    page,
+    pageSize,
+    order,
+    sort,
+  });
 
   useEffect(() => {
-    dispatch(fetchTags( page, pageSize, order, sort));
-  }, [dispatch, page, pageSize, order, sort]);
+    refetch();
+  }, [page, pageSize, order, sort, refetch]);
 
 console.log(tags);
   const arrOfSkeleton = [...Array(pageSize || 1)];
@@ -57,7 +56,7 @@ console.log(tags);
             )))
             }
 
-          {tags && !isLoading && (tags.map((item: Tag) => (
+          {tags && !isLoading && (tags.items.map((item: Tag) => (
             <BoardItem item={item}/>
             ))
           )}

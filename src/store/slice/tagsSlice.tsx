@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { Tag } from "../../types/Tag"
-import axios from "axios"
+import { TagData } from "../../types/TagsData"
+// import axios from "axios"
 
 
 interface TagsState {
@@ -34,23 +36,21 @@ export const tagsSlice = createSlice({
   },
 })
 
-export const { fetchTagsStart, fetchTagsSuccess, fetchTagsFailure } =
-  tagsSlice.actions
+export const tagsApi = createApi({
+  reducerPath: 'tagsApi',
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://api.stackexchangee.com/2.3/tags' }),
+  endpoints: (builder) => ({
+    getTags: builder.query<TagData, { page: number; pageSize: number; order: string; sort: string }>({
+      query: ({ page, pageSize, order, sort }) => ({
+        url: `?page=${page}&pagesize=${pageSize}&order=${order}&sort=${sort}&site=stackoverflow`,
+      })
+      
+    }),
+  }),
+})
 
-export const fetchTags = 
-  (page: number, pageSize: number, order: string, sort: string) => async (dispatch: any) => {
-    dispatch(fetchTagsStart())
-    try {
-      const response = await axios.get(
-        `https://api.stackexchangee.com/2.3/tags?page=${page}&pagesize=${pageSize}&order=${order}&sort=${sort}&site=stackoverflow`,
-      )
-      dispatch(fetchTagsSuccess(response.data))
-    } catch (error) {
-      dispatch(fetchTagsFailure("Error fetching data"))
-    }
-  }
+export const {
+  useGetTagsQuery
+} = tagsApi
 
-export const selectTags = (state: { tags: TagsState }) => state.tags.tags
-export const selectTagsLoading = (state: { tags: TagsState }) =>
-  state.tags.loading
-export const selectTagsError = (state: { tags: TagsState }) => state.tags.error
+export default tagsSlice.reducer;
