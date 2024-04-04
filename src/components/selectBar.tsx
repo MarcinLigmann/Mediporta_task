@@ -1,4 +1,5 @@
 import {
+  Box,
   FormControl,
   InputLabel,
   MenuItem,
@@ -26,31 +27,38 @@ const SelectBar = () => {
   };
   return (
     <div>
-      <FormControl sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="sort-order-label">Sort Order</InputLabel>
-        <Select
-          labelId="sort-order-label"
-          id="sort-order-select"
-          value={order}
-          onChange={handleOrderChange}
-        >
-          <MenuItem value="asc">ASC</MenuItem>
-          <MenuItem value="desc">DESC</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl sx={{ m: 1, minWidth: "120px" }}>
-        <InputLabel id="sort-field-label">Sort Field</InputLabel>
-        <Select
-          labelId="sort-field-label"
-          id="sort-field-select"
-          value={sort}
-          onChange={handleSortChange}
-        >
-          <MenuItem value="name">Name</MenuItem>
-          <MenuItem value="popular">Popular</MenuItem>
-          <MenuItem value="activity">Activity</MenuItem>
-        </Select>
-      </FormControl>
+      <Box
+        sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+      >
+        <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <InputLabel id="sort-order-label" className="mt-[-5px]">
+            Sort Order
+          </InputLabel>
+          <Select
+            labelId="sort-order-label"
+            value={order}
+            onChange={handleOrderChange}
+          >
+            <MenuItem value="asc">ASC</MenuItem>
+            <MenuItem value="desc">DESC</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl sx={{ m: 1, minWidth: "120px" }}>
+          <InputLabel id="sort-field-label" className="mt-[-5px]">
+            Sort Field
+          </InputLabel>
+          <Select
+            labelId="sort-field-label"
+            id="sort-field-select"
+            value={sort}
+            onChange={handleSortChange}
+          >
+            <MenuItem value="name">Name</MenuItem>
+            <MenuItem value="popular">Popular</MenuItem>
+            <MenuItem value="activity">Activity</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
     </div>
   );
 };
