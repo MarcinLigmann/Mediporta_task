@@ -2,8 +2,12 @@ import { TablePagination } from '@mui/material';
 import { ChangeEvent } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-// const PageSize: React.FC<number> = (quantity) => {
-  const PageSize = () => {
+type Props = {
+  quantity: number,
+}
+
+const PageSize: React.FC<Props> = ({ quantity }) => {
+  // const PageSize = () => {
 
   const [searchParams, setSearchParams] = useSearchParams()
   const page = parseInt(searchParams.get("page") || "1")
@@ -27,8 +31,8 @@ import { useSearchParams } from 'react-router-dom';
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
         component="div"
-        // count={quantity}
-        count={300}
+        count={quantity}
+        // count={300}
         rowsPerPage={pageSize}
         page={page - 1}
         onPageChange={handleChangePage}

@@ -7,7 +7,11 @@ import { Loader } from './loader';
 import BoardItem from './boardItem';
 import { Error } from './error';
 
-const TagsBoard = () => {
+type Props = {
+  setQuantity: (x: number) => void,
+}
+
+const TagsBoard: React.FC<Props> = ({ setQuantity }) => {
 
   const [searchParams] = useSearchParams()
 
@@ -22,6 +26,10 @@ const TagsBoard = () => {
     order,
     sort,
   });
+
+  if (tags) {
+    setQuantity(tags.quota_max);
+  }
 
   useEffect(() => {
     refetch();

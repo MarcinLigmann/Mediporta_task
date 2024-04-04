@@ -2,8 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { Tag } from "../../types/Tag"
 import { TagData } from "../../types/TagsData"
-// import axios from "axios"
-
 
 interface TagsState {
   tags: Tag[]

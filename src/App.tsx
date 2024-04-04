@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import 'react-loading-skeleton/dist/skeleton.css'
 import PageSize from './components/pageSize';
@@ -11,16 +11,18 @@ import { Footer } from './components/footex';
 
 function App() {
 
+  const [quantity, setQuantity] = useState<number>(0);
+
   return (
     <div className='p-5'>
       <Header />
       <div className='flex justify-between p-5 content-end'>
         <SelectBar />
       
-        <PageSize />
+        <PageSize quantity={quantity}/>
       </div>
       
-      <TagsBoard />
+      <TagsBoard setQuantity={setQuantity}/>
       <Footer />
     </div>
   );
