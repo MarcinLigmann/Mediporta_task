@@ -1,12 +1,11 @@
 import Alert from '@mui/material/Alert';
 
-export const Error = () => {
-
+const Error = () => {
     return (
-        <>
-            <Alert severity="error">
-            Something went wrong, please try again later
-            </Alert>
-        </>
+        <Alert severity="error">
+        Something went wrong, please try again later
+        </Alert>
     )
 }
+
+export default Error

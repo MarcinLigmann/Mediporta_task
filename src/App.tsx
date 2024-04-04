@@ -4,13 +4,12 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import PageSize from './components/pageSize';
 import SelectBar from './components/selectBar';
 import TagsBoard from './components/tagsBoard';
-import { Header } from './components/header';
-import { Footer } from './components/footex';
+import Header from './components/header';
+import Footer from './components/footer';
 
 
 
 function App() {
-
   const [quantity, setQuantity] = useState<number>(0);
 
   return (

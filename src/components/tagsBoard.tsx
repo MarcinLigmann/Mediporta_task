@@ -3,22 +3,32 @@ import { useEffect } from 'react';
 import { useGetTagsQuery } from '../store/slice/tagsSlice';
 import { useSearchParams } from 'react-router-dom';
 import { Tag } from '../types/Tag';
-import { Loader } from './loader';
+import Skelet from './skelet';
 import BoardItem from './boardItem';
-import { Error } from './error';
+import Error from './error';
+import constans from '../constants';
 
 type Props = {
   setQuantity: (x: number) => void,
 }
 
 const TagsBoard: React.FC<Props> = ({ setQuantity }) => {
+  const {
+    page: pageNumber,
+    pageRows: pageRowsNumber,
+    order: orderName,
+    sort: sortName,
+    defaultPage,
+    defaultPageRows,
+    defaultOrder,
+    defaultSort
+  } = constans
 
   const [searchParams] = useSearchParams()
-
-  const page = parseInt(searchParams.get("page") || "1");
-  const pageSize = parseInt(searchParams.get("rowsPerPage") || "5");
-  const order = searchParams.get("order") ?? "desc";
-  const sort = searchParams.get("sort") ?? "popular";
+  const page = parseInt(searchParams.get(pageNumber) || defaultPage);
+  const pageSize = parseInt(searchParams.get(pageRowsNumber) || defaultPageRows);
+  const order = searchParams.get(orderName) ?? defaultOrder;
+  const sort = searchParams.get(sortName) ?? defaultSort;
 
   const { data: tags, error, isLoading, refetch } = useGetTagsQuery({
     page,
@@ -35,8 +45,7 @@ const TagsBoard: React.FC<Props> = ({ setQuantity }) => {
     refetch();
   }, [page, pageSize, order, sort, refetch]);
 
-console.log(tags);
-  const arrOfSkeleton = [...Array(pageSize || 1)];
+  const arrOfSkeleton = [...Array(pageSize || defaultPageRows)];
 
   if (error) {
     return (
@@ -47,8 +56,7 @@ console.log(tags);
   }
 
   return (
-    <div>
-      <TableContainer component={Paper}>
+    <TableContainer component={Paper}>
       <Table>
         <TableHead>
           <TableRow>
@@ -57,10 +65,9 @@ console.log(tags);
           </TableRow>
         </TableHead>
         <TableBody>
-          
           {isLoading && (
             arrOfSkeleton.map((_, index) => (
-              <Loader index={index} />
+              <Skelet index={index} />
             )))
             }
 
@@ -68,11 +75,9 @@ console.log(tags);
             <BoardItem item={item}/>
             ))
           )}
-
         </TableBody>
       </Table>
     </TableContainer>
-    </div>
   );
 };
 

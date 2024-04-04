@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { Tag } from "../../types/Tag"
-import { TagData } from "../../types/TagsData"
+import { TagData } from "../../types/TagData"
+import constans from "../../constants"
 
 interface TagsState {
   tags: Tag[]
@@ -36,7 +37,7 @@ export const tagsSlice = createSlice({
 
 export const tagsApi = createApi({
   reducerPath: 'tagsApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://api.stackexchangee.com/2.3/tags' }),
+  baseQuery: fetchBaseQuery({ baseUrl: constans.baseURL }),
   endpoints: (builder) => ({
     getTags: builder.query<TagData, { page: number; pageSize: number; order: string; sort: string }>({
       query: ({ page, pageSize, order, sort }) => ({

@@ -1,6 +1,10 @@
 import { Skeleton, TableCell, TableRow } from "@mui/material";
 
-export const Loader = (index: any) => {
+type Props = {
+  index: number,
+}
+
+const Skelet: React.FC<Props> = ({ index }) => {
     return (
         <TableRow key={index}>
         <TableCell colSpan={2} align="center">
@@ -12,3 +16,5 @@ export const Loader = (index: any) => {
       </TableRow>
     )
 };
+
+export default Skelet;

@@ -1,24 +1,21 @@
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 
 const SelectBar = () => {
-
   const [searchParams, setSearchParams] = useSearchParams()
-
-  // const dispatch = useDispatch<ThunkDispatch<any, any, any>>()
 
   const order = searchParams.get("order") ?? "desc"
   const sort = searchParams.get("sort") ?? "popular"
 
-  const handleOrderChange = (event: any) => {
-    const newOrder = event.target.value as string;
-    searchParams.set('order', newOrder);
+  const handleOrderChange = (event: SelectChangeEvent<string>) => {
+    const newOrder = event.target.value;
+    searchParams.set("order", newOrder);
     setSearchParams(searchParams)
   }
 
-  const handleSortChange = (event: any) => {
-    const newSort = event.target.value as string;
-    searchParams.set('sort', newSort);
+  const handleSortChange = (event: SelectChangeEvent<string>) => {
+    const newSort = event.target.value;
+    searchParams.set("sort", newSort);
     setSearchParams(searchParams)
   }
   return (
