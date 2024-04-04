@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Mediporta_task/static/css/main.7d311fda.css",
+    "main.js": "/Mediporta_task/static/js/main.574b8eb1.js",
+    "index.html": "/Mediporta_task/index.html",
+    "main.7d311fda.css.map": "/Mediporta_task/static/css/main.7d311fda.css.map",
+    "main.574b8eb1.js.map": "/Mediporta_task/static/js/main.574b8eb1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7d311fda.css",
+    "static/js/main.574b8eb1.js"
+  ]
+}
