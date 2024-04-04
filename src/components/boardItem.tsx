@@ -1,17 +1,17 @@
-import { TableCell, TableRow } from '@mui/material';
-import React from 'react';
-import { Tag } from '../types/Tag';
+import { TableCell, TableRow } from "@mui/material";
+import React from "react";
+import { Tag } from "../types/Tag";
 
 type Props = {
-  item: Tag
-}
+  item: Tag;
+};
 
 const BoardItem: React.FC<Props> = ({ item }) => {
   return (
     <TableRow key={item.name}>
-    <TableCell>{item.name}</TableCell>
-    <TableCell>{item.count}</TableCell>
-  </TableRow>
+      <TableCell>{item.name}</TableCell>
+      <TableCell>{item.count}</TableCell>
+    </TableRow>
   );
 };
 
